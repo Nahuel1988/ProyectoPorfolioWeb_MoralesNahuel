@@ -1,0 +1,159 @@
+body {
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.vscode-container {
+  display: grid;
+  grid-template-columns: 50px 200px 1fr;
+  grid-template-rows: auto 30px;
+  height: 100vh;
+  grid-template-areas:
+    "sidebar explorer editor"
+    "sidebar explorer statusbar";
+}
+
+.sidebar {
+  grid-area: sidebar;
+  background-color: #252526;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+}
+
+.icon {
+  font-size: 20px;
+  margin: 15px 0;
+  cursor: pointer;
+}
+
+.explorer {
+  grid-area: explorer;
+  background-color: #1e1e1e;
+  padding: 10px;
+  border-right: 1px solid #333;
+}
+
+.explorer ul {
+  list-style: none;
+  padding: 0;
+}
+
+.explorer li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.editor {
+  grid-area: editor;
+  padding: 10px;
+}
+
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tabs div {
+  background-color: #2d2d2d;
+  padding: 5px 10px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.content {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  padding: 10px;
+  min-height: 300px;
+}
+
+.statusbar {
+  grid-area: statusbar;
+  background-color: #007acc;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.terminal {
+  grid-column: 2 / span 2;
+  background-color: #1e1e1e;
+  border-top: 1px solid #333;
+  font-family: 'Fira Code', monospace;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 200px;
+}
+
+.terminal-header {
+  color: #00ff99;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.terminal-body .line {
+  color: #d4d4d4;
+  white-space: pre;
+  animation: type 1s steps(30, end);
+  overflow: hidden;
+  border-right: 2px solid #00ff99;
+}
+
+@keyframes type {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+.file-tree {
+  list-style: none;
+  padding-left: 10px;
+  font-size: 14px;
+}
+
+.file-tree li {
+  cursor: pointer;
+  margin: 5px 0;
+}
+
+.folder > ul {
+  display: none;
+  padding-left: 15px;
+}
+
+.folder.open > ul {
+  display: block;
+}
+
+.folder::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 5px;
+  transform: rotate(0deg);
+  transition: transform 0.2s;
+}
+
+.folder.open::before {
+  transform: rotate(90deg);
+}
+
+.file-tree .icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+  filter: brightness(0.8);
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+}

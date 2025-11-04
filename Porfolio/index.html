@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portafolio VSCode - Nahuel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="vscode-container">
+    <aside class="sidebar">
+      <div class="icon">📁</div>
+      <div class="icon">🔍</div>
+      <div class="icon">🔧</div>
+    </aside>
+
+    <div class="explorer">
+      <h3>EXPLORADOR</h3>
+      <ul class="file-tree">
+        <li class="folder" onclick="toggleFolder(this)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#e8a87c" viewBox="0 0 24 24">
+        <path d="M10 4H2v16h20V6H12l-2-2z"/>
+        </svg>
+        src
+      <ul class="nested">
+        <li onclick="openFile('about')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#6a9fb5" viewBox="0 0 24 24">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6z"/>
+        </svg>
+        about.md
+        </li>
+        <li onclick="openFile('projects')">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#f7df1e" viewBox="0 0 24 24">
+        <path d="M3 3h18v18H3V3zm9 14.5c0 .8-.6 1.5-1.5 1.5s-1.5-.7-1.5-1.5V13h3v4.5zm4.5 0c0 .8-.6 1.5-1.5 1.5s-1.5-.7-1.5-1.5V13h3v4.5z"/>
+        </svg>
+        projects.js
+      </li>
+    </ul>
+      </li>
+      <li class="folder" onclick="toggleFolder(this)">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#e8a87c" viewBox="0 0 24 24">
+  <path d="M10 4H2v16h20V6H12l-2-2z"/>
+</svg>
+
+
+      config
+    <ul class="nested">
+      <li onclick="openFile('contact')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#e67e22" viewBox="0 0 24 24">
+          <path d="M4 4h16v16H4V4zm4 4v8h2V8H8zm6 0v8h2V8h-2z"/>
+      </svg>
+      contact.json
+      </li>
+    </ul>
+      </li>
+      <li onclick="openFile('README')">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#9b59b6" viewBox="0 0 24 24">
+          <path d="M6 2h12v20H6V2zm2 4v2h8V6H8zm0 4v2h8v-2H8zm0 4v2h5v-2H8z"/>
+      </svg>
+      README.md
+      </li>
+    </ul>
+    </div>
+
+    <main class="editor">
+      <div class="tabs" id="tabs"></div>
+      <div class="content" id="content"></div>
+      <div class="terminal">
+      <div class="terminal-header">TERMINAL</div>
+      <div class="terminal-body" id="terminal-body">
+      <div class="line">> npm start</div>
+    </div>
+</div>
+    </main>
+
+    <footer class="statusbar">
+      <span>⚡ API REST limpia</span>
+      <span>🔒 Seguridad técnica optimizada</span>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
