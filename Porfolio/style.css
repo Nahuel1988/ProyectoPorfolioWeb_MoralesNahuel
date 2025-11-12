@@ -5,14 +5,15 @@ body {
   color: #d4d4d4;
 }
 
-.vscode-container {
+.vscode-layout {
   display: grid;
   grid-template-columns: 50px 200px 1fr;
-  grid-template-rows: auto 30px;
-  height: 100vh;
+  grid-template-rows: auto 200px 30px;
   grid-template-areas:
     "sidebar explorer editor"
+    "sidebar explorer terminal"
     "sidebar explorer statusbar";
+  height: 100vh;
 }
 
 .sidebar {
@@ -24,7 +25,7 @@ body {
   padding-top: 10px;
 }
 
-.icon {
+.sidebar-icon {
   font-size: 20px;
   margin: 15px 0;
   cursor: pointer;
@@ -37,14 +38,31 @@ body {
   border-right: 1px solid #333;
 }
 
-.explorer ul {
+.file-tree {
   list-style: none;
-  padding: 0;
+  padding-left: 10px;
 }
 
-.explorer li {
-  padding: 5px;
+.file-tree li {
   cursor: pointer;
+  margin: 5px 0;
+}
+
+.folder > ul {
+  display: none;
+  padding-left: 15px;
+}
+
+.folder.open > ul {
+  display: block;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-right: 6px;
+  filter: brightness(0.85);
 }
 
 .editor {
@@ -72,24 +90,12 @@ body {
   min-height: 300px;
 }
 
-.statusbar {
-  grid-area: statusbar;
-  background-color: #007acc;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 10px;
-  font-size: 12px;
-}
-
 .terminal {
-  grid-column: 2 / span 2;
+  grid-area: terminal;
   background-color: #1e1e1e;
   border-top: 1px solid #333;
-  font-family: 'Fira Code', monospace;
   padding: 10px;
   overflow-y: auto;
-  max-height: 200px;
 }
 
 .terminal-header {
@@ -111,49 +117,93 @@ body {
   to { width: 100% }
 }
 
-.file-tree {
-  list-style: none;
-  padding-left: 10px;
-  font-size: 14px;
+.statusbar {
+  grid-area: statusbar;
+  background-color: #007acc;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 10px;
+  font-size: 12px;
 }
-
-.file-tree li {
-  cursor: pointer;
-  margin: 5px 0;
-}
-
-.folder > ul {
+.browser-window {
+  position: fixed;
+  top: 50px;
+  left: 60px;
+  width: 80%;
+  height: 80%;
+  background: white;
+  border: 2px solid #007acc;
+  box-shadow: 0 0 20px rgba(0,0,0,0.5);
+  z-index: 1000;
   display: none;
-  padding-left: 15px;
+  flex-direction: column;
 }
 
-.folder.open > ul {
-  display: block;
+.browser-header {
+  background: #007acc;
+  color: white;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: sans-serif;
 }
 
-.folder::before {
-  content: "▶";
-  display: inline-block;
-  margin-right: 5px;
-  transform: rotate(0deg);
-  transition: transform 0.2s;
+.browser-header button {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
 }
 
-.folder.open::before {
-  transform: rotate(90deg);
+iframe {
+  flex: 1;
+  border: none;
+}
+.terminal-body .line {
+  white-space: pre;
+  font-family: 'Fira Code', monospace;
+  color: #d4d4d4;
+  border-right: 2px solid #00ff99;
+  animation: type 1s steps(30, end);
+}
+.content {
+  white-space: pre-wrap;
+  font-family: 'Fira Code', monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  padding: 10px;
+  border: 1px solid #333;
+  min-height: 300px;
+}
+.editor-body {
+  display: flex;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  height: 300px;
+  overflow: auto;
+  font-family: 'Fira Code', monospace;
 }
 
-.file-tree .icon {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 6px;
-  filter: brightness(0.8);
+.line-numbers {
+  background-color: #2d2d2d;
+  color: #858585;
+  padding: 10px 5px;
+  text-align: right;
+  user-select: none;
 }
 
-.icon {
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 6px;
+.code-area {
+  padding: 10px;
+  white-space: pre;
+  color: #d4d4d4;
+  flex: 1;
 }
+
+/* Resaltado básico */
+.token-tag { color: #569cd6; }
+.token-attr { color: #9cdcfe; }
+.token-string { color: #ce9178; }
+.token-text  { color: #d4d4d4; }

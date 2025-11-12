@@ -1,0 +1,41 @@
+{
+  "nombre": "Nahuel",
+  "foto": "assets/profile.jpg",
+  "descripcion": "Desarrollador backend metódico y creativo, especializado en eficiencia técnica, seguridad y automatización. Me apasiona construir APIs limpias, depurar entornos complejos y documentar soluciones con precisión. Integro herramientas digitales en mi rutina para optimizar procesos y presentaciones, combinando rigor técnico con estética profesional.",
+  "formacion": {
+    "institucion": "Universidad Tecnológica Nacional - Facultad Regional Mendoza",
+    "carrera": "Tecnicatura Universitaria en Programación",
+    "estado": "En curso",
+    "inicio": "2023"
+  },
+  "habilidades": [
+    "Node.js + Express",
+    "MongoDB + Mongoose",
+    "Testing automatizado",
+    "Documentación técnica impecable",
+    "Organización modular con scripts"
+  ],
+  "lenguajes": [
+    { "nombre": "JavaScript", "icono": "file-js.svg" },
+    { "nombre": "TypeScript", "icono": "file-ts.svg" },
+    { "nombre": "HTML", "icono": "file-html.svg" },
+    { "nombre": "CSS", "icono": "file-css.svg" },
+    { "nombre": "JSON", "icono": "file-json.svg" },
+    { "nombre": "Markdown", "icono": "file-md.svg" }
+  ],
+  "proyectos": [
+    {
+      "nombre": "API REST saludable",
+      "descripcion": "Backend optimizado con dependencias mínimas y manejo robusto de errores."
+    },
+    {
+      "nombre": "Gestor de menús semanales",
+      "descripcion": "Sistema modular con recetas, listas de compras y automatización."
+    }
+  ],
+  "contacto": {
+    "email": "nahuel.dev@ejemplo.com",
+    "github": "github.com/nahueldev",
+    "linkedin": "linkedin.com/in/nahueldev"
+  }
+}
