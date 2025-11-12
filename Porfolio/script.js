@@ -1,47 +1,30 @@
+// 🌐 Referencias a elementos clave
 const tabs = document.getElementById("tabs");
 const codeArea = document.getElementById("codeArea");
 const lineNumbers = document.getElementById("lineNumbers");
 const browserWindow = document.getElementById("browserWindow");
 const browserContent = document.getElementById("browserContent");
 
-const files = {
-  html: [
-    "<!DOCTYPE html>",
-    "<html lang='es'>",
-    "<head>",
-    "  <meta charset='UTF-8'>",
-    "  <title>Nahuel - Portfolio</title>",
-    "  <link rel='stylesheet' href='style.css'>",
-    "</head>",
-    "<body>",
-    "  <h1>Hola, soy Nahuel</h1>",
-    "  <p>Desarrollador backend con foco en eficiencia y automatización.</p>",
-    "  <script src='script.js'></script>",
-    "</body>",
-    "</html>"
-  ],
-  css: [
-    "body {",
-    "  font-family: sans-serif;",
-    "  background-color: #f4f4f4;",
-    "  padding: 2rem;",
-    "  color: #333;",
-    "}",
-    "h1 {",
-    "  color: #007acc;",
-    "}"
-  ],
-  js: [
-    "console.log('Portfolio cargado correctamente');",
-    "document.querySelector('h1').style.fontWeight = 'bold';"
-  ]
-};
+// 📁 Archivos simulados para el editor
+let files = {};
 
+fetch("archivos.json")
+  .then(res => res.json())
+  .then(data => {
+    files = data;
+    startSequence(); // inicia la animación una vez cargado
+  })
+  .catch(err => {
+    console.error("Error al cargar archivos.json:", err);
+  });
+
+// 🧹 Limpia el editor
 function clearEditor() {
   codeArea.innerText = "";
   lineNumbers.innerText = "";
 }
 
+// ✍️ Escribe líneas con animación
 function writeLines(lines, fileName, onComplete) {
   tabs.innerHTML = `<div>${fileName}</div>`;
   clearEditor();
@@ -66,6 +49,7 @@ function writeLines(lines, fileName, onComplete) {
   }, 100);
 }
 
+// 🚀 Secuencia de carga de archivos
 function startSequence() {
   writeLines(files.html, "index.html", () => {
     writeLines(files.css, "style.css", () => {
@@ -76,6 +60,7 @@ function startSequence() {
   });
 }
 
+// 🌐 Simula navegador con HTML generado
 function launchBrowser() {
   const html = files.html.join("\n");
   const css = `<style>\n${files.css.join("\n")}\n</style>`;
@@ -94,3 +79,59 @@ function launchBrowser() {
 function closeBrowserWindow() {
   browserWindow.style.display = "none";
 }
+
+// 🌳 Renderiza árbol de archivos desde JSON
+function renderFileTree(data, container) {
+  data.forEach(item => {
+    if (item.type === "folder") {
+      const folder = document.createElement("li");
+      folder.classList.add("folder");
+
+      const header = document.createElement("div");
+      header.classList.add("folder-header");
+      header.innerHTML = `
+        <img src="assets/icons/folder-closed.svg" class="icon" />
+        <span>${item.name}</span>
+      `;
+      folder.appendChild(header);
+
+      const childrenList = document.createElement("ul");
+      childrenList.classList.add("file-list");
+
+      renderFileTree(item.children, childrenList);
+      folder.appendChild(childrenList);
+
+      header.addEventListener("click", () => {
+        folder.classList.toggle("open");
+        const icon = header.querySelector("img");
+        icon.src = folder.classList.contains("open")
+          ? "assets/icons/folder-open.svg"
+          : "assets/icons/folder-closed.svg";
+      });
+
+      container.appendChild(folder);
+    } else {
+      const file = document.createElement("li");
+      const ext = item.name.split(".").pop();
+      file.innerHTML = `
+        <img src="assets/icons/file-${ext}.svg" class="icon" />
+        ${item.name}
+      `;
+      container.appendChild(file);
+    }
+  });
+}
+
+// 📦 Carga JSON externo y genera árbol
+document.addEventListener("DOMContentLoaded", () => {
+  const treeContainer = document.querySelector(".file-tree");
+
+  fetch("arbol_carpetas.json")
+    .then(res => res.json())
+    .then(data => {
+      renderFileTree(data, treeContainer);
+    })
+    .catch(err => {
+      console.error("Error al cargar arbol_carpetas.json:", err);
+    });
+});

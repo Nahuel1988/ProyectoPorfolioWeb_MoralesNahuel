@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="UTF-8" />
   <title>Simulador de Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
 </head>
 
@@ -12,18 +12,21 @@
 
     <!-- Sidebar lateral estilo VSCode -->
     <aside class="sidebar">
-      <button class="sidebar-icon" title="Explorador">
-        <img src="assets/icons/files.svg" alt="Explorador" />
-      </button>
-      <button class="sidebar-icon" title="Buscar">
-        <img src="assets/icons/search.svg" alt="Buscar" />
-      </button>
-      <button class="sidebar-icon" title="Git">
-        <img src="assets/icons/github-inverted.svg" alt="Git" />
-      </button>
-      <button class="sidebar-icon" title="Extensiones">
-        <img src="assets/icons/extensions.svg" alt="Extensiones" />
-      </button>
+      <div class="sidebar-top">
+        <button class="sidebar-icon" title="Explorador">
+          <img src="assets/icons/files.svg" alt="explorer" />
+        </button>
+        <button class="sidebar-icon" title="Buscar">
+          <img src="assets/icons/search.svg" alt="search" />
+        </button>
+        <button class="sidebar-icon" title="Git">
+          <img src="assets/icons/github-inverted.svg" alt="git" />
+        </button>
+        <button class="sidebar-icon" title="Extensiones">
+          <img src="assets/icons/extensions.svg" alt="extensions" />
+        </button>
+      </div>
+
       <div class="sidebar-bottom">
         <button class="sidebar-icon" title="Configuración">
           <img src="assets/icons/settings-gear.svg" alt="configuración" />
@@ -39,16 +42,22 @@
     <aside class="explorer">
       <h3>mi-portfolio</h3>
       <ul class="file-tree">
-        <li onclick="startSequence()">
-          <img src="assets/icons/file-html.svg" class="icon" /> index.html
-        </li>
-        <li>
-          <img src="assets/icons/file-css.svg" class="icon" /> style.css
-        </li>
-        <li>
-          <img src="assets/icons/file-js.svg" class="icon" /> script.js
+        <li class="folder">
+          <div class="folder-header">
+            <img src="assets/icons/default_folder.svg" alt="src" class="icon" />
+            <span>src</span>
+          </div>
+          <ul class="file-list">
+            <li><img src="assets/icons/file_type_html.svg" class="icon" alt="index.html" /> index.html</li>
+            <li><img src="assets/icons/file_type_css.svg" class="icon" alt="style.css" /> style.css</li>
+            <li><img src="assets/icons/file_type_js.svg" class="icon" alt="script.js" /> script.js</li>
+          </ul>
         </li>
       </ul>
+
+
+
+
     </aside>
 
     <!-- Editor central -->
@@ -77,5 +86,35 @@
 
   </div>
 </body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const folders = document.querySelectorAll(".folder");
+
+    folders.forEach(folder => {
+      const header = folder.querySelector(".folder-header");
+      const icon = header.querySelector(".icon");
+
+      header.addEventListener("click", () => {
+        folder.classList.toggle("open");
+        const isOpen = folder.classList.contains("open");
+        icon.src = isOpen
+          ? "assets/icons/default_folder_opened.svg"
+          : "assets/icons/default_folder.svg";
+      });
+    });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebarButtons = document.querySelectorAll(".sidebar-icon");
+
+    sidebarButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        sidebarButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+  });
+</script>
 
 </html>

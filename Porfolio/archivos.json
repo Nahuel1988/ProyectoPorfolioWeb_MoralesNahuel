@@ -1,0 +1,32 @@
+{
+  "html": [
+    "<!DOCTYPE html>",
+    "<html lang='es'>",
+    "<head>",
+    "  <meta charset='UTF-8'>",
+    "  <title>Nahuel - Portfolio</title>",
+    "  <link rel='stylesheet' href='style.css'>",
+    "</head>",
+    "<body>",
+    "  <h1>Hola, soy Nahuel</h1>",
+    "  <p>Desarrollador backend con foco en eficiencia y automatización.</p>",
+    "  <script src='script.js'></script>",
+    "</body>",
+    "</html>"
+  ],
+  "css": [
+    "body {",
+    "  font-family: sans-serif;",
+    "  background-color: #f4f4f4;",
+    "  padding: 2rem;",
+    "  color: #333;",
+    "}",
+    "h1 {",
+    "  color: #007acc;",
+    "}"
+  ],
+  "js": [
+    "console.log('Portfolio cargado correctamente');",
+    "document.querySelector('h1').style.fontWeight = 'bold';"
+  ]
+}

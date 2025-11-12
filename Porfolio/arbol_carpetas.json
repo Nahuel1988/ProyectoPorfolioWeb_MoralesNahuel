@@ -1,0 +1,15 @@
+[
+  {
+    "name": "src",
+    "type": "folder",
+    "children": [
+      { "name": "index.html", "type": "file" },
+      { "name": "style.css", "type": "file" },
+      { "name": "script.js", "type": "file" }
+    ]
+  },
+  {
+    "name": "config.json",
+    "type": "file"
+  }
+]

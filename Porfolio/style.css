@@ -22,17 +22,37 @@ html, body {
   padding-left: 0;
 }
 
-.file-tree li {
+.file-tree {
+  list-style: none;
+  padding: 0 10px;
+  font-size: 13px;
+  color: #d4d4d4;
+}
+
+.folder {
   cursor: pointer;
-  margin: 8px 0;
+  user-select: none;
+}
+.folder-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.file-list {
+  margin-left: 16px;
+  display: none;
+}
+
+.folder.open .file-list {
+  display: block;
 }
 
 .icon {
   width: 16px;
   height: 16px;
-  margin-right: 6px;
-  vertical-align: middle;
-  filter: brightness(0.9);
 }
 
 .editor {
@@ -133,41 +153,59 @@ html, body {
 
 /* Sidebar lateral izquierdo estilo VSCode */
 .sidebar {
+  background-color: #252526;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* separa arriba y abajo */
+  justify-content: space-between; /* mantiene top y bottom separados */
+  align-items: center;
   height: 100%;
-  background-color: #252526;
   border-right: 1px solid #333;
+  min-width: 50px;
+  height: 100%;
+}
+.sidebar-icon {
+  background-color: transparent; /* evita fondo blanco */
+  margin: 18px 0;     /* más espacio entre íconos */
+  padding: 8px;
 }
 
-
+.sidebar-top,
 .sidebar-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 10px;
 }
+
 
 .sidebar-icon {
-  background: transparent;
-  border: none;
-  margin: 16px 0;           /* Más espacio entre íconos */
-  padding: 8px;             /* Área de clic más cómoda */
-  cursor: pointer;
-  width: 100%;
+  all: unset;
   display: flex;
   justify-content: center;
-  transition: background-color 0.2s ease;
-}
-.sidebar-icon:hover {
-  background-color: #007acc;
+  align-items: center;
+  margin: 18px 0;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
 }
 
+
+.sidebar-icon svg,
 .sidebar-icon img {
-  width: 24px;              /* Ícono más grande */
+  width: 24px;
   height: 24px;
+  transition: filter 0.2s ease, transform 0.2s ease;
   filter: brightness(0.9);
+}
+.sidebar-icon.active svg,
+.sidebar-icon.active img {
+  filter: brightness(1.6) saturate(1.2);
+  transform: scale(1.05);
+}
+
+.sidebar-icon:hover svg,
+.sidebar-icon:hover img {
+  filter: brightness(1.4);
+  transform: scale(1.05);
 }
 
 .statusbar {
