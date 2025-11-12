@@ -37,6 +37,11 @@
   /* 🧱 Bordes y sombras */
   --border-radius: 4px;
   --box-shadow-browser: 0 0 20px rgba(0, 0, 0, 0.5);
+
+  --color-hover-bg: rgba(255, 255, 255, 0.08); /* o el que uses en VSCode */
+  --color-active-bg: rgba(0, 122, 204, 0.2); /* estilo VSCode */
+
+
 }
 
 html, body {

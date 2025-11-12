@@ -25,31 +25,69 @@
     /* Estándar moderno */
 }
 
-.folder-header {
+.folder-header,
+.file {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+  padding: 4px 6px;
+  font-size: 14px;
+  font-family: var(--font-mono);
   cursor: pointer;
-  padding: 4px 0;
 }
 
 .arrow {
   width: var(--arrow-size);
   height: var(--arrow-size);
   transition: transform var(--transition-fast);
-  margin-right: 4px;
+}
+
+.folder-icon {
+  width: var(--icon-size);
+  height: var(--icon-size);
 }
 
 .file-list {
   margin-left: 16px;
   display: none;
+  list-style: none;
+  padding-left: 12px;
+  margin: 0;
 }
 
-.folder.open .file-list {
+.folder.open > .file-list {
   display: block;
+  margin-left: 8px;
 }
 
 .icon {
   width: var(--icon-size);
   height: var(--icon-size);
+  margin-right: 6px;
 }
+.folder-header span,
+.file span {
+  font-size: 20px;          /* 🔠 Texto más grande */
+  font-family: var(--font-mono);
+  letter-spacing: 0.2px;
+}
+.folder-header:hover,
+.file:hover {
+  background-color: var(--color-hover-bg);
+  border-radius: 4px;
+}
+.file.active {
+  background-color: var(--color-active-bg);
+  border-radius: 4px;
+}
+
+.file.active img.icon {
+  filter: brightness(1.2); /* o un SVG alternativo si querés */
+}
+.file-tree,
+.file-list {
+  list-style: none;
+  padding-left: 12px;
+  margin: 0;
+}
+

@@ -18,13 +18,20 @@
 
 <body>
     <div class="vscode-layout">
-        <div id="sidebar"></div>
-        <div id="explorer"></div>
-        <div id="editor"></div>
-        <div id="terminal"></div>
+        <div id="sidebar" class="sidebar"></div>
+        <div id="explorer" class="explorer"></div>
+        <div id="editor" class="editor">
+            <div class="tabs"></div>
+            <div class="code-area"></div>
+            <div class="preview"></div>
+        </div>
+        <div id="terminal" class="terminal"></div>
+        <div id="statusbar" class="statusbar"></div>
     </div>
 
-    <script src="scripts/main.js"></script>
+
 </body>
+
+<script type="module" src="scripts/main.js"></script>
 
 </html>

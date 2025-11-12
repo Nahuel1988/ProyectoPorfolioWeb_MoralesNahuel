@@ -1,15 +1,15 @@
 [
   {
-    "name": "src",
     "type": "folder",
+    "name": "src",
     "children": [
-      { "name": "index.html", "type": "file" },
-      { "name": "style.css", "type": "file" },
-      { "name": "script.js", "type": "file" }
+      { "type": "file", "name": "index.html" },
+      { "type": "file", "name": "style.css" },
+      { "type": "file", "name": "script.js" }
     ]
   },
   {
-    "name": "config.json",
-    "type": "file"
+    "type": "file",
+    "name": "README.md"
   }
 ]

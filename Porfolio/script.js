@@ -81,52 +81,54 @@ function closeBrowserWindow() {
 }
 
 // 🌳 Renderiza árbol de archivos desde JSON
-function renderFileTree(data, container) {
+function renderTree(data, container) {
   data.forEach(item => {
+    const li = document.createElement("li");
+
     if (item.type === "folder") {
-      const folder = document.createElement("li");
-      folder.classList.add("folder");
-
-      const header = document.createElement("div");
-      header.classList.add("folder-header");
-      header.innerHTML = `
-        <img src="assets/icons/chevron-right.svg" class="arrow" />
-        <img src="assets/icons/folder-closed.svg" class="icon" />
-        <span>${item.name}</span>
+      li.className = "folder";
+      li.innerHTML = `
+        <div class="folder-header">
+          <img src="assets/icons/chevron-right.svg" class="arrow" />
+          <img src="assets/icons/folder-closed.svg" class="folder-icon" />
+          <span>${item.name}</span>
+        </div>
+        <ul class="file-list"></ul>
       `;
-      folder.appendChild(header);
 
-      const childrenList = document.createElement("ul");
-      childrenList.classList.add("file-list");
+      renderTree(item.children, li.querySelector(".file-list"));
 
-      renderFileTree(item.children, childrenList);
-      folder.appendChild(childrenList);
+      const header = li.querySelector(".folder-header");
+      const arrow = li.querySelector(".arrow");
+      const folderIcon = li.querySelector(".folder-icon");
 
       header.addEventListener("click", () => {
-        folder.classList.toggle("open");
+        li.classList.toggle("open");
 
-        const arrow = header.querySelector(".arrow");
-        const folderIcon = header.querySelector(".icon");
-
-        folderIcon.src = folder.classList.contains("open")
-          ? "assets/icons/folder-open.svg"
-          : "assets/icons/folder-closed.svg";
-
-        arrow.src = folder.classList.contains("open")
+        const isOpen = li.classList.contains("open");
+        arrow.src = isOpen
           ? "assets/icons/chevron-down.svg"
           : "assets/icons/chevron-right.svg";
-      });
 
-      container.appendChild(folder);
+        folderIcon.src = isOpen
+          ? "assets/icons/folder-open.svg"
+          : "assets/icons/folder-closed.svg";
+      });
     } else {
-      const file = document.createElement("li");
-      const ext = item.name.split(".").pop();
-      file.innerHTML = `
-        <img src="assets/icons/file-${ext}.svg" class="icon" />
-        ${item.name}
+      li.className = "file";
+      li.innerHTML = `
+        <img src="assets/icons/file.svg" class="icon" />
+        <span>${item.name}</span>
       `;
-      container.appendChild(file);
+      li.addEventListener("click", () => {
+        const codeArea = document.querySelector(".code-area");
+        const tabs = document.querySelector(".tabs");
+        tabs.textContent = item.name;
+        codeArea.textContent = `// Contenido simulado de ${item.name}`;
+      });
     }
+
+    container.appendChild(li);
   });
 }
 
