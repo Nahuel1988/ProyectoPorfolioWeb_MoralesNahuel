@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Simulador de Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style/base.css" />
+  <link rel="stylesheet" href="style/layout.css" />
+  <link rel="stylesheet" href="style/sidebar.css" />
+  <link rel="stylesheet" href="style/explorer.css" />
+  <link rel="stylesheet" href="style/editor.css" />
+  <link rel="stylesheet" href="style/browser.css" />
+  <link rel="stylesheet" href="style/statusbar.css" />
+</head>
+
+<body>
+  <div class="vscode-layout">
+
+    <!-- Sidebar lateral estilo VSCode -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <button type="button" class="sidebar-icon" title="Explorador">
+          <img src="assets/icons/files.svg" alt="explorer" />
+        </button>
+        <button type="button" class="sidebar-icon" title="Buscar">
+          <img src="assets/icons/search.svg" alt="search" />
+        </button>
+        <button type="button" class="sidebar-icon" title="Git">
+          <img src="assets/icons/github-inverted.svg" alt="git" />
+        </button>
+        <button type="button" class="sidebar-icon" title="Extensiones">
+          <img src="assets/icons/extensions.svg" alt="extensions" />
+        </button>
+      </div>
+
+      <div class="sidebar-bottom">
+        <button type="button" class="sidebar-icon" title="Configuración">
+          <img src="assets/icons/settings-gear.svg" alt="configuración" />
+        </button>
+        <button type="button" class="sidebar-icon" title="Cuenta">
+          <img src="assets/icons/account.svg" alt="cuenta" />
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- Explorador de archivos -->
+    <aside class="explorer">
+      <h3>mi-portfolio</h3>
+      <ul class="file-tree"></ul>
+    </aside>
+
+    <!-- Editor central -->
+    <main class="editor">
+      <div class="tabs" id="tabs"></div>
+      <div class="editor-body">
+        <div class="line-numbers" id="lineNumbers"></div>
+        <pre class="code-area" id="codeArea"></pre>
+      </div>
+    </main>
+
+    <!-- Barra de estado inferior -->
+    <footer class="statusbar">
+      <span>🌐 Español (Latinoamérica)</span>
+      <span>🔒 Git: main</span>
+      <span>⚠️ 0 errores</span>
+    </footer>
+    <!-- Ventana flotante tipo navegador -->
+    <div class="browser-window" id="browserWindow">
+      <div class="browser-header">
+        <span>index.html</span>
+        <button type="button" onclick="closeBrowserWindow()">✖</button>
+      </div>
+      <iframe id="browserContent" title="Vista previa del navegador simulado"></iframe>
+    </div>
+
+  </div>
+</body>
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const folders = document.querySelectorAll(".folder");
+
+    folders.forEach(folder => {
+      const header = folder.querySelector(".folder-header");
+      const icon = header.querySelector(".icon");
+
+      header.addEventListener("click", () => {
+        folder.classList.toggle("open");
+        const isOpen = folder.classList.contains("open");
+        icon.src = isOpen
+          ? "assets/icons/default_folder_opened.svg"
+          : "assets/icons/default_folder.svg";
+      });
+    });
+  });
+</script> -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebarButtons = document.querySelectorAll(".sidebar-icon");
+
+    sidebarButtons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        sidebarButtons.forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+      });
+    });
+  });
+</script>
+
+</html>

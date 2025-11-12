@@ -3,6 +3,12 @@ html, body {
   padding: 0;
   height: 100%;
 }
+body {
+  font-family: 'Consolas', 'Courier New', monospace;
+  font-size: 14px;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
 
 
 .layout {
@@ -31,14 +37,25 @@ html, body {
 
 .folder {
   cursor: pointer;
-  user-select: none;
+  -webkit-user-select: none; /* Safari, iOS */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge Legacy */
+  user-select: none;         /* Estándar moderno */
 }
+
 .folder-header {
   display: flex;
   align-items: center;
   gap: 6px;
   cursor: pointer;
   padding: 4px 0;
+}
+
+.arrow {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.2s ease;
+  margin-right: 4px;
 }
 
 .file-list {
@@ -78,8 +95,12 @@ html, body {
   color: #858585;
   padding: 10px 5px;
   text-align: right;
-  user-select: none;
+  -webkit-user-select: none; /* Safari, iOS */
+  -moz-user-select: none;    /* Firefox */
+  -ms-user-select: none;     /* Internet Explorer/Edge Legacy */
+  user-select: none;         /* Estándar moderno */
 }
+
 
 .code-area {
   padding: 10px;
@@ -123,15 +144,7 @@ iframe {
   flex: 1;
   border: none;
 }
-.sidebar {
-  background-color: #252526;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10px;
-  height: 100%;
-  border-right: 1px solid #333;
-}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -164,9 +177,16 @@ html, body {
   height: 100%;
 }
 .sidebar-icon {
-  background-color: transparent; /* evita fondo blanco */
-  margin: 18px 0;     /* más espacio entre íconos */
-  padding: 8px;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
 }
 
 .sidebar-top,
@@ -191,15 +211,15 @@ html, body {
 
 .sidebar-icon svg,
 .sidebar-icon img {
-  width: 24px;
-  height: 24px;
+  width: 35px;
+  height: 35px;
   transition: filter 0.2s ease, transform 0.2s ease;
   filter: brightness(0.9);
 }
 .sidebar-icon.active svg,
 .sidebar-icon.active img {
   filter: brightness(1.6) saturate(1.2);
-  transform: scale(1.05);
+  transform: scale(1.25);
 }
 
 .sidebar-icon:hover svg,

@@ -1,0 +1,12 @@
+.statusbar {
+  grid-area: statusbar;
+  background-color: var(--color-accent);
+  color: var(--color-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: var(--font-size-small);
+  height: var(--statusbar-height);
+  border-top: 1px solid var(--color-accent-dark);
+}

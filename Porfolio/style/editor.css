@@ -1,0 +1,32 @@
+.editor {
+  grid-area: editor;
+  padding: var(--editor-padding);
+}
+
+.tabs {
+  background-color: var(--color-tab);
+  padding: var(--tab-padding);
+  margin-bottom: 5px;
+}
+
+.editor-body {
+  display: flex;
+  background-color: var(--color-editor);
+  border: 1px solid var(--color-border);
+  height: 300px;
+  overflow: auto;
+}
+
+.line-numbers {
+  background-color: var(--color-tab);
+  color: var(--color-muted);
+  padding: var(--line-number-padding);
+  text-align: right;
+  user-select: none;
+}
+
+.code-area {
+  padding: var(--editor-padding);
+  white-space: pre;
+  flex: 1;
+}

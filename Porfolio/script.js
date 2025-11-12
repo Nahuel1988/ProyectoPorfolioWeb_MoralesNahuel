@@ -90,6 +90,7 @@ function renderFileTree(data, container) {
       const header = document.createElement("div");
       header.classList.add("folder-header");
       header.innerHTML = `
+        <img src="assets/icons/chevron-right.svg" class="arrow" />
         <img src="assets/icons/folder-closed.svg" class="icon" />
         <span>${item.name}</span>
       `;
@@ -103,10 +104,17 @@ function renderFileTree(data, container) {
 
       header.addEventListener("click", () => {
         folder.classList.toggle("open");
-        const icon = header.querySelector("img");
-        icon.src = folder.classList.contains("open")
+
+        const arrow = header.querySelector(".arrow");
+        const folderIcon = header.querySelector(".icon");
+
+        folderIcon.src = folder.classList.contains("open")
           ? "assets/icons/folder-open.svg"
           : "assets/icons/folder-closed.svg";
+
+        arrow.src = folder.classList.contains("open")
+          ? "assets/icons/chevron-down.svg"
+          : "assets/icons/chevron-right.svg";
       });
 
       container.appendChild(folder);
@@ -124,11 +132,14 @@ function renderFileTree(data, container) {
 
 // 📦 Carga JSON externo y genera árbol
 document.addEventListener("DOMContentLoaded", () => {
+  console.log("Iniciando carga del árbol…"); // ✅ debería aparecer
+
   const treeContainer = document.querySelector(".file-tree");
 
   fetch("arbol_carpetas.json")
     .then(res => res.json())
     .then(data => {
+      console.log("Árbol cargado:", data); // ✅ debería mostrar el JSON
       renderFileTree(data, treeContainer);
     })
     .catch(err => {

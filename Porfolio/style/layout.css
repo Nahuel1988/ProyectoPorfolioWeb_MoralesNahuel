@@ -1,0 +1,9 @@
+.vscode-layout {
+  height: 100vh;
+  display: grid;
+  grid-template-areas:
+    "sidebar explorer editor"
+    "sidebar explorer statusbar";
+  grid-template-columns: var(--sidebar-width) var(--explorer-width) 1fr;
+  grid-template-rows: 1fr var(--statusbar-height);
+}

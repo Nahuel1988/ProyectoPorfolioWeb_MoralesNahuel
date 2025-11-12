@@ -1,11 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html lang="es">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Árbol</title>
 </head>
 <body>
-    
+  <ul class="file-tree"></ul>
+
+  <script>
+    function renderFileTree(data, container) {
+      data.forEach(item => {
+        const li = document.createElement("li");
+        li.textContent = item.name;
+        container.appendChild(li);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const treeContainer = document.querySelector(".file-tree");
+      console.log("Iniciando carga del árbol…");
+
+      fetch("arbol_carpetas.json")
+        .then(res => res.json())
+        .then(data => {
+          console.log("Árbol cargado:", data);
+          renderFileTree(data, treeContainer);
+        })
+        .catch(err => {
+          console.error("Error al cargar arbol_carpetas.json:", err);
+        });
+    });
+  </script>
 </body>
 </html>

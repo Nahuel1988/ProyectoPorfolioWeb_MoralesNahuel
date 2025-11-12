@@ -1,0 +1,35 @@
+.browser-window {
+  position: fixed;
+  top: 50px;
+  left: 60px;
+  width: 80%;
+  height: 80%;
+  background: var(--color-white);
+  border: 2px solid var(--color-accent);
+  box-shadow: var(--box-shadow-browser);
+  z-index: 1000;
+  display: none;
+  flex-direction: column;
+}
+
+.browser-header {
+  background: var(--color-accent);
+  color: var(--color-white);
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.browser-header button {
+  background: transparent;
+  border: none;
+  color: var(--color-white);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+iframe {
+  flex: 1;
+  border: none;
+}
