@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Portfolio VSCode</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="vscode-container">
+        <!-- Barra superior -->
+        <header class="top-bar">
+            <span class="title">Nahuel / Portfolio</span>
+        </header>
+
+        <div class="main">
+            <!-- Explorador lateral -->
+            <div class="vscode-layout">
+                <aside class="sidebar">
+                    <button class="sidebar-icon" title="Explorador">
+                        <img src="assets/icons/files.svg" alt="explorer" />
+                    </button>
+                    <button class="sidebar-icon" title="Buscar">
+                        <img src="assets/icons/search.svg" alt="search" />
+                    </button>
+                    <button class="sidebar-icon" title="Git">
+                        <img src="assets/icons/github-inverted.svg" alt="git" />
+                    </button>
+                    <button class="sidebar-icon" title="Extensiones">
+                        <img src="assets/icons/extensions.svg" alt="extensions" />
+                    </button>
+                </aside>
+                <aside class="sidebar">
+                    <h3>EXPLORADOR</h3>
+                    <ul class="file-tree">
+                        <li class="folder">/src
+                            <ul>
+                                <li><img src="assets/icons/js.svg" /> index.js</li>
+                                <li><img src="assets/icons/html.svg" /> index.html</li>
+                                <li><img src="assets/icons/css.svg" /> style.css</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </aside>
+
+                <!-- Área de contenido -->
+                <main class="editor">
+                    <pre><code id="code-block">
+// Tu código aparecerá aquí...
+function saludo() {
+  console.log("Hola, Nahuel!");
+}
+        </code></pre>
+                </main>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+</body>
+
+</html>

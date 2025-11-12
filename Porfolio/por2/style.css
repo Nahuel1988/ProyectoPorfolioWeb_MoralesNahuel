@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: 'Consolas', monospace;
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+}
+
+.vscode-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.top-bar {
+  background-color: #333;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  color: #fff;
+}
+
+.main {
+  display: flex;
+  flex: 1;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #252526;
+  padding: 1rem;
+  overflow-y: auto;
+}
+
+.sidebar h3 {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 1rem;
+}
+
+.file-tree {
+  list-style: none;
+  padding-left: 0;
+}
+
+.file-tree li {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.file-tree img {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
+.editor {
+  flex: 1;
+  padding: 1rem;
+  background-color: #1e1e1e;
+  overflow-y: auto;
+}
+
+pre {
+  background-color: #1e1e1e;
+  padding: 1rem;
+  border-radius: 4px;
+  white-space: pre-wrap;
+}

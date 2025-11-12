@@ -1,131 +1,73 @@
-body {
+html, body {
   margin: 0;
-  font-family: 'Fira Code', monospace;
-  background-color: #1e1e1e;
-  color: #d4d4d4;
+  padding: 0;
+  height: 100%;
 }
 
-.vscode-layout {
+
+.layout {
   display: grid;
-  grid-template-columns: 50px 200px 1fr;
-  grid-template-rows: auto 200px 30px;
-  grid-template-areas:
-    "sidebar explorer editor"
-    "sidebar explorer terminal"
-    "sidebar explorer statusbar";
+  grid-template-columns: 200px 1fr;
   height: 100vh;
 }
 
-.sidebar {
-  grid-area: sidebar;
-  background-color: #252526;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-top: 10px;
-}
-
-.sidebar-icon {
-  font-size: 20px;
-  margin: 15px 0;
-  cursor: pointer;
-}
-
 .explorer {
-  grid-area: explorer;
-  background-color: #1e1e1e;
+  background-color: #252526;
   padding: 10px;
   border-right: 1px solid #333;
 }
 
 .file-tree {
   list-style: none;
-  padding-left: 10px;
+  padding-left: 0;
 }
 
 .file-tree li {
   cursor: pointer;
-  margin: 5px 0;
-}
-
-.folder > ul {
-  display: none;
-  padding-left: 15px;
-}
-
-.folder.open > ul {
-  display: block;
+  margin: 8px 0;
 }
 
 .icon {
   width: 16px;
   height: 16px;
-  vertical-align: middle;
   margin-right: 6px;
-  filter: brightness(0.85);
+  vertical-align: middle;
+  filter: brightness(0.9);
 }
 
 .editor {
-  grid-area: editor;
   padding: 10px;
 }
 
 .tabs {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.tabs div {
   background-color: #2d2d2d;
   padding: 5px 10px;
-  border-radius: 3px;
-  cursor: pointer;
-}
-
-.content {
-  background-color: #1e1e1e;
-  border: 1px solid #333;
-  padding: 10px;
-  min-height: 300px;
-}
-
-.terminal {
-  grid-area: terminal;
-  background-color: #1e1e1e;
-  border-top: 1px solid #333;
-  padding: 10px;
-  overflow-y: auto;
-}
-
-.terminal-header {
-  color: #00ff99;
-  font-weight: bold;
   margin-bottom: 5px;
 }
 
-.terminal-body .line {
-  color: #d4d4d4;
-  white-space: pre;
-  animation: type 1s steps(30, end);
-  overflow: hidden;
-  border-right: 2px solid #00ff99;
-}
-
-@keyframes type {
-  from { width: 0 }
-  to { width: 100% }
-}
-
-.statusbar {
-  grid-area: statusbar;
-  background-color: #007acc;
-  color: white;
+.editor-body {
   display: flex;
-  justify-content: space-between;
-  padding: 5px 10px;
-  font-size: 12px;
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  height: 300px;
+  overflow: auto;
 }
+
+.line-numbers {
+  background-color: #2d2d2d;
+  color: #858585;
+  padding: 10px 5px;
+  text-align: right;
+  user-select: none;
+}
+
+.code-area {
+  padding: 10px;
+  white-space: pre;
+  flex: 1;
+}
+
+/* Navegador flotante */
 .browser-window {
   position: fixed;
   top: 50px;
@@ -147,7 +89,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: sans-serif;
 }
 
 .browser-header button {
@@ -162,48 +103,82 @@ iframe {
   flex: 1;
   border: none;
 }
-.terminal-body .line {
-  white-space: pre;
-  font-family: 'Fira Code', monospace;
-  color: #d4d4d4;
-  border-right: 2px solid #00ff99;
-  animation: type 1s steps(30, end);
-}
-.content {
-  white-space: pre-wrap;
-  font-family: 'Fira Code', monospace;
-  background-color: #1e1e1e;
-  color: #d4d4d4;
-  padding: 10px;
-  border: 1px solid #333;
-  min-height: 300px;
-}
-.editor-body {
+.sidebar {
+  background-color: #252526;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  height: 100%;
+  border-right: 1px solid #333;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
   background-color: #1e1e1e;
-  border: 1px solid #333;
-  height: 300px;
-  overflow: auto;
   font-family: 'Fira Code', monospace;
-}
-
-.line-numbers {
-  background-color: #2d2d2d;
-  color: #858585;
-  padding: 10px 5px;
-  text-align: right;
-  user-select: none;
-}
-
-.code-area {
-  padding: 10px;
-  white-space: pre;
   color: #d4d4d4;
-  flex: 1;
 }
 
-/* Resaltado básico */
-.token-tag { color: #569cd6; }
-.token-attr { color: #9cdcfe; }
-.token-string { color: #ce9178; }
-.token-text  { color: #d4d4d4; }
+.vscode-layout {
+  display: grid;
+  grid-template-columns: 50px 250px 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "sidebar explorer editor"
+    "sidebar explorer statusbar";
+  height: 100vh;
+}
+
+/* Sidebar lateral izquierdo estilo VSCode */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* separa arriba y abajo */
+  height: 100%;
+  background-color: #252526;
+  border-right: 1px solid #333;
+}
+
+
+.sidebar-bottom {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 10px;
+}
+
+.sidebar-icon {
+  background: transparent;
+  border: none;
+  margin: 16px 0;           /* Más espacio entre íconos */
+  padding: 8px;             /* Área de clic más cómoda */
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+}
+.sidebar-icon:hover {
+  background-color: #007acc;
+}
+
+.sidebar-icon img {
+  width: 24px;              /* Ícono más grande */
+  height: 24px;
+  filter: brightness(0.9);
+}
+
+.statusbar {
+  grid-area: statusbar;
+  background-color: #007acc;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 12px;
+  font-size: 12px;
+  height: 30px;
+  border-top: 1px solid #005a9e;
+}

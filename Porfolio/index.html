@@ -3,48 +3,55 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portafolio VSCode - Nahuel</title>
+  <title>Simulador de Portfolio</title>
   <link rel="stylesheet" href="style.css" />
-  <script src="script.js"></script>
 </head>
 
 <body>
   <div class="vscode-layout">
+
+    <!-- Sidebar lateral estilo VSCode -->
     <aside class="sidebar">
-      <div class="sidebar-icon">📁</div>
-      <div class="sidebar-icon">🔍</div>
-      <div class="sidebar-icon">🔧</div>
+      <button class="sidebar-icon" title="Explorador">
+        <img src="assets/icons/files.svg" alt="Explorador" />
+      </button>
+      <button class="sidebar-icon" title="Buscar">
+        <img src="assets/icons/search.svg" alt="Buscar" />
+      </button>
+      <button class="sidebar-icon" title="Git">
+        <img src="assets/icons/github-inverted.svg" alt="Git" />
+      </button>
+      <button class="sidebar-icon" title="Extensiones">
+        <img src="assets/icons/extensions.svg" alt="Extensiones" />
+      </button>
+      <div class="sidebar-bottom">
+        <button class="sidebar-icon" title="Configuración">
+          <img src="assets/icons/settings-gear.svg" alt="configuración" />
+        </button>
+        <button class="sidebar-icon" title="Cuenta">
+          <img src="assets/icons/account.svg" alt="cuenta" />
+        </button>
+      </div>
+
     </aside>
 
-    <section class="explorer">
-      <h3>EXPLORADOR</h3>
+    <!-- Explorador de archivos -->
+    <aside class="explorer">
+      <h3>mi-portfolio</h3>
       <ul class="file-tree">
-        <li onclick="buildCurriculumFromJSON()">
-          <img src="assets/icons/file-html.svg" class="icon" />
-          index.html
+        <li onclick="startSequence()">
+          <img src="assets/icons/file-html.svg" class="icon" /> index.html
         </li>
-        <li class="folder" onclick="toggleFolder(this)">
-          <img src="assets/icons/folder.svg" class="icon" />
-          src
-          <ul class="nested">
-            <li onclick="openFile('about')">
-              <img src="assets/icons/file-md.svg" class="icon" />
-              about.md
-            </li>
-            <li onclick="openFile('projects')">
-              <img src="assets/icons/file-js.svg" class="icon" />
-              projects.js
-            </li>
-          </ul>
+        <li>
+          <img src="assets/icons/file-css.svg" class="icon" /> style.css
         </li>
-        <li onclick="openFile('README')">
-          <img src="assets/icons/file-readme.svg" class="icon" />
-          README.md
+        <li>
+          <img src="assets/icons/file-js.svg" class="icon" /> script.js
         </li>
       </ul>
-    </section>
+    </aside>
 
+    <!-- Editor central -->
     <main class="editor">
       <div class="tabs" id="tabs"></div>
       <div class="editor-body">
@@ -53,24 +60,21 @@
       </div>
     </main>
 
-    <section class="terminal">
-      <div class="terminal-header">TERMINAL</div>
-      <div class="terminal-body" id="terminal-body">
-        <div class="line">> npm start</div>
-      </div>
-    </section>
-
+    <!-- Barra de estado inferior -->
     <footer class="statusbar">
       <span>🌐 Español (Latinoamérica)</span>
-      <span>🔒 Seguridad técnica activa</span>
+      <span>🔒 Git: main</span>
+      <span>⚠️ 0 errores</span>
     </footer>
-  </div>
-  <div class="browser-window" id="browserWindow">
-    <div class="browser-header">
-      <span class="browser-title">index.html - Nahuel CV</span>
-      <button onclick="closeBrowserWindow()">✖</button>
+    <!-- Ventana flotante tipo navegador -->
+    <div class="browser-window" id="browserWindow">
+      <div class="browser-header">
+        <span>index.html</span>
+        <button onclick="closeBrowserWindow()">✖</button>
+      </div>
+      <iframe id="browserContent"></iframe>
     </div>
-    <iframe id="browserContent"></iframe>
+
   </div>
 </body>
 
