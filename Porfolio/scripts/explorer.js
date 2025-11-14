@@ -1,3 +1,5 @@
+import { renderTerminal } from "./terminal.js";
+
 export function initExplorer() {
   const iconPath = "assets/icons/";
 
@@ -5,108 +7,116 @@ export function initExplorer() {
     .then(res => res.json())
     .then(data => {
       const tree = document.querySelector(".file-tree");
-      renderTree(data, tree);
+      renderTree(data, tree, iconPath);
     });
+}
 
-  function renderTree(data, container) {
-    data.forEach(item => {
-      const li = document.createElement("li");
+function renderTree(data, container, iconPath) {
+  data.forEach(item => {
+    const li = document.createElement("li");
 
-      if (item.type === "folder") {
-        li.className = "folder";
-        li.innerHTML = `
-          <div class="folder-header">
-            <img src="${iconPath}chevron-right.svg" class="arrow" />
-            <img src="${iconPath}default_folder.svg" class="folder-icon" />
-            <span>${item.name}</span>
-          </div>
-          <ul class="file-list"></ul>
-        `;
+    if (item.type === "folder") {
+      renderFolder(item, li, iconPath);
+    } else {
+      renderFile(item, li, iconPath);
+    }
 
-        renderTree(item.children, li.querySelector(".file-list"));
+    container.appendChild(li);
+  });
+}
 
-        const header = li.querySelector(".folder-header");
-        const arrow = li.querySelector(".arrow");
-        const folderIcon = li.querySelector(".folder-icon");
+function renderFolder(item, li, iconPath) {
+  li.className = "folder";
+  li.innerHTML = `
+    <div class="folder-header">
+      <img src="${iconPath}chevron-right.svg" class="arrow" />
+      <img src="${iconPath}default_folder.svg" class="folder-icon" />
+      <span>${item.name}</span>
+    </div>
+    <ul class="file-list"></ul>
+  `;
 
-        header.addEventListener("click", () => {
-          li.classList.toggle("open");
+  const fileList = li.querySelector(".file-list");
+  renderTree(item.children, fileList, iconPath);
 
-          const isOpen = li.classList.contains("open");
-          arrow.src = isOpen
-            ? `${iconPath}chevron-down.svg`
-            : `${iconPath}chevron-right.svg`;
+  const header = li.querySelector(".folder-header");
+  const arrow = li.querySelector(".arrow");
+  const folderIcon = li.querySelector(".folder-icon");
 
-          folderIcon.src = isOpen
-            ? `${iconPath}default_folder_opened.svg`
-            : `${iconPath}default_folder.svg`;
-        });
-      } else {
-        const fileIcon = getIconForExtension(item.name);
-        li.className = "file";
-        li.innerHTML = `
-          <img src="${fileIcon}" class="icon" />
-          <span>${item.name}</span>
-        `;
+  header.addEventListener("click", () => {
+    li.classList.toggle("open");
 
-        li.addEventListener("click", () => {
-          const filename = item.name;
+    const isOpen = li.classList.contains("open");
+    arrow.src = isOpen
+      ? `${iconPath}chevron-down.svg`
+      : `${iconPath}chevron-right.svg`;
 
-          document.querySelectorAll(".file").forEach(f => f.classList.remove("active"));
-          li.classList.add("active");
+    folderIcon.src = isOpen
+      ? `${iconPath}default_folder_opened.svg`
+      : `${iconPath}default_folder.svg`;
+  });
+}
 
-          const tabs = document.querySelector(".tabs");
-          const codeArea = document.querySelector(".code-area");
-          const preview = document.querySelector(".preview");
+function renderFile(item, li, iconPath) {
+  const fileIcon = getIconForExtension(item.name, iconPath);
+  li.className = "file";
+  li.innerHTML = `
+    <img src="${fileIcon}" class="icon" />
+    <span>${item.name}</span>
+  `;
 
-          fetch("archivos.json")
-            .then(res => res.json())
-            .then(data => {
-              if (data[filename]) {
-                tabs.innerHTML = `<div class="tab active">${filename}</div>`;
-                codeArea.textContent = data[filename];
+  li.__data = item;
 
-                // Si es index.html, simulamos el flujo completo
-                if (filename === "index.html") {
-                  setTimeout(() => {
-                    tabs.innerHTML += `<div class="tab active">style.css</div>`;
-                    codeArea.textContent = data["style.css"];
-                  }, 1500);
+  li.addEventListener("click", () => handleFileClick(item, li));
+}
 
-                  setTimeout(() => {
-                    tabs.innerHTML += `<div class="tab active">script.js</div>`;
-                    codeArea.textContent = data["script.js"];
-                  }, 3000);
+function handleFileClick(item, li) {
+  document.querySelectorAll(".file").forEach(f => f.classList.remove("active"));
+  li.classList.add("active");
 
-                  setTimeout(() => {
-                    preview.innerHTML = `
-                      <iframe class="browser-preview" srcdoc="
-                        <html>
-                          <head>
-                            <style>${data["style.css"]}</style>
-                          </head>
-                          <body>
-                            <h1>Hola Nahuel</h1>
-                            <p>¡JS cargado!</p>
-                            <script>${data["script.js"]}</script>
-                          </body>
-                        </html>
-                      "></iframe>
-                    `;
-                  }, 4500);
-                }
-              }
-            });
-        });
+  const { name, execution, path } = item;
+  const tabs = document.querySelector(".tabs");
+  const codeArea = document.querySelector(".code-area");
+  const preview = document.querySelector(".preview");
+
+  tabs.innerHTML = `<div class="tab active">${name}</div>`;
+  codeArea.textContent = "";
+  preview.innerHTML = "";
+
+  fetch("archivos.json")
+    .then(res => res.json())
+    .then(data => {
+      const content = data[path];
+      if (!content) return;
+
+      typeInEditor(content, codeArea);
+
+      if (execution === "terminal") {
+        renderTerminal(name, content);
+      } else if (execution === "browser") {
+        preview.innerHTML = `<iframe class="browser-preview" srcdoc="${content}"></iframe>`;
       }
-
-      container.appendChild(li);
     });
-  }
+}
 
-  function getIconForExtension(filename) {
-    const ext = filename.split(".").pop().toLowerCase();
-    const knownIcons = ["html", "js", "css", "json", "md", "txt"];
-    return `${iconPath}file_type_${knownIcons.includes(ext) ? ext : "default"}.svg`;
-  }
+function getIconForExtension(filename, iconPath) {
+  const ext = filename.split(".").pop().toLowerCase();
+  const knownIcons = ["html", "js", "css", "json", "md", "txt", "sh"];
+  return `${iconPath}file_type_${knownIcons.includes(ext) ? ext : "default"}.svg`;
+}
+
+function typeInEditor(text, targetElement, speed = 30) {
+  return new Promise(resolve => {
+    targetElement.textContent = "";
+    let index = 0;
+
+    const interval = setInterval(() => {
+      targetElement.textContent += text[index];
+      index++;
+      if (index >= text.length) {
+        clearInterval(interval);
+        resolve();
+      }
+    }, speed);
+  });
 }

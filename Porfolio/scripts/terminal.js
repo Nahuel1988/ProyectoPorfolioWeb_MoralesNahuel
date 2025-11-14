@@ -1,24 +1,35 @@
-export function initTerminal() {
-  const input = document.querySelector(".terminal-input");
-  const output = document.querySelector(".terminal-output");
+export function renderTerminal(filename, content) {
+  const preview = document.querySelector(".preview");
+  preview.innerHTML = `
+    <div class="terminal-sim">
+      <pre class="terminal-output"></pre>
+    </div>
+  `;
 
-  input.addEventListener("keydown", e => {
-    if (e.key === "Enter") {
-      const command = input.value.trim();
-      output.innerHTML += `\n> ${command}`;
-      input.value = "";
+  const output = preview.querySelector(".terminal-output");
+  simulateTerminalOutput(filename, content, output);
+}
 
-      if (command === "clear") {
-        output.innerHTML = "";
-      } else if (command === "help") {
-        output.innerHTML += `\nComandos disponibles: clear, help, echo [texto]`;
-      } else if (command.startsWith("echo ")) {
-        output.innerHTML += `\n${command.slice(5)}`;
-      } else {
-        output.innerHTML += `\nComando no reconocido`;
+function simulateTerminalOutput(filename, content, output, speed = 40) {
+  const lines = content.split("\n");
+  let index = 0;
+
+  function writeNextLine() {
+    if (index >= lines.length) return;
+
+    const line = `$ ${filename}\n${lines[index]}\n`;
+    let charIndex = 0;
+
+    const lineInterval = setInterval(() => {
+      output.textContent += line[charIndex];
+      charIndex++;
+      if (charIndex >= line.length) {
+        clearInterval(lineInterval);
+        index++;
+        setTimeout(writeNextLine, 300);
       }
+    }, speed);
+  }
 
-      output.scrollTop = output.scrollHeight;
-    }
-  });
+  writeNextLine();
 }
