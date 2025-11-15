@@ -7,46 +7,20 @@
         "type": "file",
         "name": "index.html",
         "execution": "browser",
-        "path": "proyectos/browser/index.html"
+        "path": "index.html"
       },
       {
         "type": "file",
         "name": "style.css",
-        "execution": "browser",
-        "path": "proyectos/browser/style.css"
-      },
-      {
-        "type": "file",
-        "name": "script.js",
-        "execution": "browser",
-        "path": "proyectos/browser/script.js"
+        "execution": "editor",
+        "path": "style.css"
       },
       {
         "type": "file",
         "name": "setup.sh",
         "execution": "terminal",
-        "path": "proyectos/terminal/setup.sh"
+        "path": "setup.sh"
       }
     ]
-  },
-  {
-    "type": "folder",
-    "name": "proyectos",
-    "children": [
-      {
-        "type": "file",
-        "name": "setup.sh",
-        "execution": "terminal",
-        "path": "proyectos/setup.sh"
-      },
-      {
-        "type": "file",
-        "name": "deploy.sh",
-        "execution": "terminal",
-        "path": "proyectos/deploy.sh"
-      }
-    ]
-
   }
-  
 ]

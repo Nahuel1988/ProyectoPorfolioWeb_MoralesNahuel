@@ -1,108 +1,139 @@
 :root {
   --color-editor-bg: #1e1e1e;
-  --color-text: #d4d4d4;
   --color-panel: #252526;
   --color-border: #3c3c3c;
   --color-tab: #2d2d2d;
+  --color-tab-active: #007acc;
+  --color-text: #d4d4d4;
+  --color-muted: #888;
+  --editor-padding: 12px;
+  --tab-padding: 6px 12px;
+  --line-number-padding: 8px;
   --font-mono: 'Fira Code', 'Courier New', monospace;
 }
 
+/* === CONTENEDOR PRINCIPAL === */
+.main-area {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* === PESTAÑAS === */
+.tabs {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  background-color: var(--color-panel);
+  border-bottom: 1px solid var(--color-border);
+}
+
+
+.tab {
+  background-color: var(--color-tab);
+  color: var(--color-text);
+  padding: 4px 12px;
+  font-size: 13px;
+  border-right: 1px solid var(--color-border);
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.tab:last-child {
+  border-right: none;
+}
+
+.tab.active {
+  background-color: var(--color-tab-active);
+  color: white;
+  border-bottom: 1px solid var(--color-panel); /* para que se funda con el fondo */
+  z-index: 1;
+  position: relative;
+}
+.close-tab {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 14px;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+/* === CONTENIDO DE PESTAÑA === */
+.tab-content {
+  display: none;
+  padding: 12px;
+  border: 1px solid var(--color-border);
+  border-radius: 0 0 6px 6px;
+  background-color: var(--color-panel);
+  box-sizing: border-box;
+}
+
+/* === EDITOR === */
 .editor {
+  grid-area: editor;
   background-color: var(--color-editor-bg);
   color: var(--color-text);
   font-family: var(--font-mono);
-  padding: 12px;
+  padding: var(--editor-padding);
   font-size: 14px;
   white-space: pre-wrap;
   line-height: 1.5;
   overflow-y: auto;
   min-height: 300px;
-  border-top: 1px solid var(--color-border);
-}
-
-.tabs {
-  background-color: var(--color-panel);
-  border-bottom: 1px solid var(--color-border);
-  padding: 6px 12px;
-  display: flex;
-  gap: 6px;
-}
-
-.tab {
-  background-color: var(--color-tab);
-  color: var(--color-text);
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-}
-
-.editor {
-  grid-area: editor;
-  padding: var(--editor-padding);
-}
-
-.tabs {
-  background-color: var(--color-tab);
-  padding: var(--tab-padding);
-  margin-bottom: 5px;
-}
-
-.editor-body {
-  display: flex;
-  background-color: var(--color-editor);
   border: 1px solid var(--color-border);
-  height: 300px;
-  overflow: auto;
+  border-radius: 6px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
+/* === ÁREA DE CÓDIGO === */
+.code-area {
+  flex: 1;
+  padding: var(--editor-padding);
+  background-color: var(--color-editor-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  white-space: pre;
+  min-height: 200px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+/* === NÚMEROS DE LÍNEA === */
 .line-numbers {
   background-color: var(--color-tab);
   color: var(--color-muted);
   padding: var(--line-number-padding);
   text-align: right;
   -webkit-user-select: none;
-    /* Safari, iOS */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge Legacy */
-    user-select: none;
-    /* Estándar moderno */
+  user-select: none;
 }
 
-.code-area {
-  padding: var(--editor-padding);
-  white-space: pre;
-  flex: 1;
-}
-.tabs {
-  display: flex;
-  gap: 6px;
-  padding: 6px 12px;
-  background-color: var(--color-panel);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.tab {
-  background-color: var(--color-tab);
-  padding: 4px 8px;
-  border-radius: 4px;
-  font-size: 13px;
-  color: var(--color-text);
-}
-
-.code-area {
-  background-color: var(--color-editor-bg);
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  padding: 12px;
-  white-space: pre;
-  min-height: 200px;
-}
-
+/* === TERMINAL / PREVIEW === */
 .preview {
+  flex: 1;
+  padding: 16px;
   margin-top: 12px;
   border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background-color: var(--color-panel);
+  overflow: auto;
+  height: 200px;
+}
+
+.terminal-sim {
+  background-color: #1e1e1e;
+  color: #00ff00;
+  font-family: 'Courier New', monospace;
+  padding: 16px;
+  border-radius: 6px;
+  white-space: pre-wrap;
+  min-height: 200px;
+  overflow-y: auto;
 }
 
 .browser-preview {

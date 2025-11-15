@@ -1,8 +1,14 @@
 export function initSidebar() {
-  document.addEventListener("click", e => {
-    if (e.target.closest(".sidebar-icon")) {
-      document.querySelectorAll(".sidebar-icon").forEach(btn => btn.classList.remove("active"));
-      e.target.closest(".sidebar-icon").classList.add("active");
-    }
+  const buttons = document.querySelectorAll(".sidebar-icon");
+
+  buttons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      buttons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const panel = btn.dataset.panel;
+      console.log(`Panel activo: ${panel}`);
+      // Acá podrías mostrar/ocultar paneles si los tenés definidos
+    });
   });
 }

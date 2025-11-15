@@ -1,9 +1,5 @@
 {
-  "proyectos/browser/index.html": "<!DOCTYPE html>\n<html>...</html>",
-  "proyectos/browser/style.css": "body { background-color: #1e1e1e; ... }",
-  "proyectos/browser/script.js": "document.addEventListener(...)",
-  "proyectos/terminal/setup.sh": "#!/bin/bash\nnpm install",
-  "proyectos/setup.sh": "#!/bin/bash\nnpm install\nnpm run build",
-  "proyectos/deploy.sh": "#!/bin/bash\necho \"Desplegando...\"\nscp dist/* user@server:/var/www"
+  "index.html": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>Portafolio</title>\n  </head>\n  <body>\n    <h1>Hola Mundo!</h1>\n  </body>\n</html>",
+  "style.css": "body {\n  font-family: sans-serif;\n  background-color: #f0f0f0;\n  color: #333;\n}",
+  "setup.sh": "#!/bin/bash\nnpm install\nnpm run build"
 }
-

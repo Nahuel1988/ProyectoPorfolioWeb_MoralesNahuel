@@ -1,58 +1,43 @@
-.explorer {
+/* === CONTENEDOR PRINCIPAL === */
+#explorer {
   grid-area: explorer;
   height: 100%;
-  background-color: var(--color-panel);
-  padding: var(--editor-padding);
-  border-right: 1px solid var(--color-border);
+  background-color: var(--color-panel, #1e1e1e);
+  padding: var(--editor-padding, 8px);
+  border: 1px solid var(--color-border, #333);
+  border-radius: 6px;
+  box-sizing: border-box;
 }
 
+/* === ÁRBOL DE ARCHIVOS === */
 .file-tree {
   list-style: none;
-  padding: 0 var(--editor-padding);
-  font-size: var(--font-size-tree);
-  color: var(--color-text);
+  padding: 0 var(--editor-padding, 8px);
+  margin: 0;
+  font-size: var(--font-size-tree, 14px);
+  color: var(--color-text, #ccc);
 }
 
+/* === CARPETAS === */
 .folder {
   cursor: pointer;
   -webkit-user-select: none;
-    /* Safari, iOS */
-    -moz-user-select: none;
-    /* Firefox */
-    -ms-user-select: none;
-    /* Internet Explorer/Edge Legacy */
-    user-select: none;
-    /* Estándar moderno */
+  user-select: none;
 }
 
-.folder-header,
-.file {
+.folder-header {
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 4px 6px;
   font-size: 14px;
-  font-family: var(--font-mono);
+  font-family: var(--font-mono, monospace);
   cursor: pointer;
 }
 
-.arrow {
-  width: var(--arrow-size);
-  height: var(--arrow-size);
-  transition: transform var(--transition-fast);
-}
-
-.folder-icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
-}
-
-.file-list {
-  margin-left: 16px;
-  display: none;
-  list-style: none;
-  padding-left: 12px;
-  margin: 0;
+.folder-header:hover {
+  background-color: var(--color-hover-bg, #2a2d2e);
+  border-radius: 4px;
 }
 
 .folder.open > .file-list {
@@ -60,34 +45,60 @@
   margin-left: 8px;
 }
 
-.icon {
-  width: var(--icon-size);
-  height: var(--icon-size);
-  margin-right: 6px;
+/* === ARCHIVOS === */
+.file {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px;
+  font-size: 14px;
+  font-family: var(--font-mono, monospace);
+  cursor: pointer;
 }
-.folder-header span,
-.file span {
-  font-size: 20px;          /* 🔠 Texto más grande */
-  font-family: var(--font-mono);
-  letter-spacing: 0.2px;
-}
-.folder-header:hover,
+
 .file:hover {
-  background-color: var(--color-hover-bg);
+  background-color: var(--color-hover-bg, #2a2d2e);
   border-radius: 4px;
 }
+
 .file.active {
-  background-color: var(--color-active-bg);
+  background-color: var(--color-active-bg, #094771);
   border-radius: 4px;
 }
 
 .file.active img.icon {
-  filter: brightness(1.2); /* o un SVG alternativo si querés */
+  filter: brightness(1.2);
 }
-.file-tree,
+
+/* === LISTAS INTERNAS === */
 .file-list {
   list-style: none;
   padding-left: 12px;
   margin: 0;
+  display: none;
 }
 
+/* === ICONOS === */
+.arrow {
+  width: var(--arrow-size, 12px);
+  height: var(--arrow-size, 12px);
+  transition: transform var(--transition-fast, 0.2s);
+}
+
+.folder-icon,
+.icon {
+  width: var(--icon-size, 16px);
+  height: var(--icon-size, 16px);
+}
+
+.icon {
+  margin-right: 6px;
+}
+
+/* === TEXTO === */
+.folder-header span,
+.file span {
+  font-size: 20px;
+  font-family: var(--font-mono, monospace);
+  letter-spacing: 0.2px;
+}

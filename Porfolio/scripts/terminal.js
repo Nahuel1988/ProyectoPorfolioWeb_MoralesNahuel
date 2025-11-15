@@ -1,12 +1,22 @@
-export function renderTerminal(filename, content) {
-  const preview = document.querySelector(".preview");
-  preview.innerHTML = `
-    <div class="terminal-sim">
-      <pre class="terminal-output"></pre>
-    </div>
-  `;
+export function renderTerminal(filename, content, container) {
+  if (!container) return;
 
-  const output = preview.querySelector(".terminal-output");
+  // Validación de contenido
+  if (typeof content !== "string" || !content.trim()) {
+    container.innerHTML = `<div class="terminal-sim">⚠️ Error: contenido no válido para ${filename}</div>`;
+    return;
+  }
+
+  // Crear contenedor de terminal
+  const session = document.createElement("div");
+  session.className = "terminal-sim";
+
+  const output = document.createElement("pre");
+  output.className = "terminal-output";
+
+  session.appendChild(output);
+  container.appendChild(session);
+
   simulateTerminalOutput(filename, content, output);
 }
 
@@ -17,12 +27,15 @@ function simulateTerminalOutput(filename, content, output, speed = 40) {
   function writeNextLine() {
     if (index >= lines.length) return;
 
-    const line = `$ ${filename}\n${lines[index]}\n`;
+    const line = `$ ${filename} > ${lines[index]}\n`;
     let charIndex = 0;
 
     const lineInterval = setInterval(() => {
       output.textContent += line[charIndex];
       charIndex++;
+
+      output.scrollTop = output.scrollHeight;
+
       if (charIndex >= line.length) {
         clearInterval(lineInterval);
         index++;

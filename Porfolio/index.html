@@ -15,20 +15,39 @@
     <link rel="stylesheet" href="style/statusbar.css" />
 
 </head>
-
 <body>
+    <header class="topbar">
+            <div class="topbar-left">
+                <img src="assets/icons/file_type_vscode.svg" class="logo" alt="Logo" />
+                <span class="project-name">Porfolio VSCode</span>
+            </div>
+            <div class="topbar-right">
+                <button title="Minimizar">—</button>
+                <button title="Expandir">▢</button>
+                <button title="Cerrar">✕</button>
+            </div>
+     </header>
+
+
     <div class="vscode-layout">
-        <div class="preview"></div>
+
         <div id="sidebar" class="sidebar"></div>
+        
         <div id="explorer" class="explorer"></div>
-        <div id="editor" class="editor">
+        <div class="main-area">
             <div class="tabs"></div>
             <div class="code-area"></div>
-            <div class="preview"></div>
+            <div class="preview">
+                <div class="terminal terminal-sim">
+                    <pre class="terminal-output"></pre>
+                </div>
+            </div>
         </div>
         <div id="terminal" class="terminal"></div>
+
         <div id="statusbar" class="statusbar"></div>
     </div>
+
 
 
 </body>

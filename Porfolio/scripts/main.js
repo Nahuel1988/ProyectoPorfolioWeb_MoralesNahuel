@@ -1,10 +1,15 @@
 function loadComponent(id, file, callback) {
   fetch(`components/${file}`)
-    .then(res => res.text())
+    .then(res => {
+      if (!res.ok) throw new Error(`No se pudo cargar ${file}`);
+      return res.text();
+    })
     .then(html => {
-      document.getElementById(id).innerHTML = html;
-      if (callback) callback(); // Ejecuta lógica después de insertar el HTML
-    });
+      const container = document.getElementById(id);
+      if (container) container.innerHTML = html;
+      if (callback) callback();
+    })
+    .catch(err => console.error(`Error al cargar ${file}:`, err));
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -15,9 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
   loadComponent("statusbar", "statusbar.html");
 
   // Inicializar lógica por módulo
-  import("./sidebar.js").then(m => m.initSidebar());
-  import("./explorer.js").then(m => m.initExplorer());
-  import("./editor.js").then(m => m.initEditor());
-  import("./terminal.js").then(m => m.initTerminal());
-  import("./statusbar.js").then(m => m.initStatusbar());
+  import("./sidebar.js").then(m => m.initSidebar?.());
+  import("./explorer.js").then(m => m.initExplorer?.());
+  import("./editor.js").then(m => m.initEditor?.());
+  import("./terminal.js").then(m => m.renderTerminal?.()); // si no tenés initTerminal
+  //import("./statusbar.js").then(m => m.initStatusbar?.());
 });

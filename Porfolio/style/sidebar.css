@@ -3,6 +3,7 @@
   background-color: var(--color-panel);
   display: flex;
   flex-direction: column;
+  -ms-flex-direction: column;
   justify-content: space-between;
   align-items: center;
   border-right: 1px solid var(--color-border);

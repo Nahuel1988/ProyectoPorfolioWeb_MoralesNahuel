@@ -63,3 +63,39 @@ html, body {
   min-height: 200px;
   overflow-y: auto;
 }
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-panel);
+  border-bottom: 1px solid var(--color-border);
+  padding: 6px 12px;
+  height: 32px;
+  font-size: 13px;
+  color: var(--color-text);
+}
+
+.topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logo {
+  width: 16px;
+  height: 16px;
+}
+
+.project-name {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.topbar-right button {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 14px;
+  margin-left: 8px;
+  cursor: pointer;
+}
