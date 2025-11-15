@@ -1,6 +1,4 @@
-import { renderTerminal } from "./terminal.js";
-
-export function initExplorer() {
+export function initExplorer(onFileSelect) {
   const iconPath = "assets/icons/";
 
   fetch("arbol_carpetas.json")
@@ -10,54 +8,38 @@ export function initExplorer() {
     })
     .then(data => {
       const tree = document.querySelector(".file-tree");
-      if (tree) renderTree(data, tree, iconPath);
+      if (tree) renderTree(data, tree, iconPath, onFileSelect);
     })
     .catch(err => console.error("Error al cargar árbol de carpetas:", err));
-
-  document.querySelector(".tabs").addEventListener("click", e => {
-    if (e.target.classList.contains("close-tab")) {
-      const tab = e.target.closest(".tab");
-      const path = tab.dataset.path;
-
-      tab.remove();
-      document.querySelector(`.tab-content[data-path="${path}"]`)?.remove();
-
-      const lastTab = document.querySelector(".tab:last-child");
-      if (lastTab) activateTab(lastTab.dataset.path);
-    } else if (e.target.closest(".tab")) {
-      const tab = e.target.closest(".tab");
-      activateTab(tab.dataset.path);
-    }
-  });
 }
 
-function renderTree(data, container, iconPath) {
+function renderTree(data, container, iconPath, onFileSelect) {
   data.forEach(item => {
     const li = document.createElement("li");
 
     if (item.type === "folder") {
-      renderFolder(item, li, iconPath);
+      renderFolder(item, li, iconPath, onFileSelect);
     } else {
-      renderFile(item, li, iconPath);
+      renderFile(item, li, iconPath, onFileSelect);
     }
 
     container.appendChild(li);
   });
 }
 
-function renderFolder(item, li, iconPath) {
+function renderFolder(item, li, iconPath, onFileSelect) {
   li.className = "folder";
   li.innerHTML = `
     <div class="folder-header" title="Carpeta: ${item.name}">
-      <img src="${iconPath}chevron-right.svg" class="arrow" alt="Expandir carpeta" title="Expandir carpeta" />
-      <img src="${iconPath}default_folder.svg" class="folder-icon" alt="Icono de carpeta" title="Icono de carpeta" />
-      <span title="${item.name}">${item.name}</span>
+      <img src="${iconPath}chevron-right.svg" class="arrow" />
+      <img src="${iconPath}default_folder.svg" class="folder-icon" />
+      <span>${item.name}</span>
     </div>
     <ul class="file-list"></ul>
   `;
 
   const fileList = li.querySelector(".file-list");
-  renderTree(item.children, fileList, iconPath);
+  renderTree(item.children, fileList, iconPath, onFileSelect);
 
   const header = li.querySelector(".folder-header");
   const arrow = li.querySelector(".arrow");
@@ -65,19 +47,13 @@ function renderFolder(item, li, iconPath) {
 
   header.addEventListener("click", () => {
     li.classList.toggle("open");
-
     const isOpen = li.classList.contains("open");
-    arrow.src = isOpen
-      ? `${iconPath}chevron-down.svg`
-      : `${iconPath}chevron-right.svg`;
-
-    folderIcon.src = isOpen
-      ? `${iconPath}default_folder_opened.svg`
-      : `${iconPath}default_folder.svg`;
+    arrow.src = `${iconPath}${isOpen ? "chevron-down" : "chevron-right"}.svg`;
+    folderIcon.src = `${iconPath}${isOpen ? "default_folder_opened" : "default_folder"}.svg`;
   });
 }
 
-function renderFile(item, li, iconPath) {
+function renderFile(item, li, iconPath, onFileSelect) {
   const fileIcon = getIconForExtension(item.name, iconPath);
   li.className = "file";
   li.innerHTML = `
@@ -85,70 +61,11 @@ function renderFile(item, li, iconPath) {
     <span>${item.name}</span>
   `;
 
-  li.__data = item;
-  li.addEventListener("click", () => handleFileClick(item, li));
-}
-
-function handleFileClick(item, li) {
-  const { name, execution, path } = item;
-
-  document.querySelectorAll(".file").forEach(f => f.classList.remove("active"));
-  li.classList.add("active");
-
-  const tabs = document.querySelector(".tabs");
-  const previewArea = document.querySelector(".preview");
-  if (!previewArea) {
-  console.error("⚠️ No se encontró el contenedor .preview-area en el DOM");
-  return;
-  }
-
-
-  let tab = tabs.querySelector(`.tab[data-path="${path}"]`);
-  let content = previewArea.querySelector(`.tab-content[data-path="${path}"]`);
-
-  if (!tab) {
-    tab = document.createElement("div");
-    tab.className = "tab";
-    tab.dataset.path = path;
-    tab.innerHTML = `<span>${name}</span><button class="close-tab">×</button>`;
-    tabs.appendChild(tab);
-
-    content = document.createElement("div");
-    content.className = "tab-content";
-    content.dataset.path = path;
-    previewArea.appendChild(content);
-
-    fetch("archivos.json")
-      .then(res => res.json())
-      .then(data => {
-        const fileContent = data[path];
-        if (!fileContent || typeof fileContent !== "string") {
-          content.innerHTML = `<div class="terminal-sim">⚠️ Archivo vacío o no encontrado</div>`;
-          return;
-        }
-
-        if (execution === "terminal") {
-          renderTerminal(name, fileContent, content);
-        } else if (execution === "browser") {
-          content.innerHTML = `<iframe class="browser-preview" srcdoc="${fileContent}"></iframe>`;
-        } else {
-          content.textContent = fileContent;
-        }
-      });
-  }
-
-  activateTab(path);
-}
-
-function activateTab(path) {
-  document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-  document.querySelectorAll(".tab-content").forEach(c => (c.style.display = "none"));
-
-  const tab = document.querySelector(`.tab[data-path="${path}"]`);
-  const content = document.querySelector(`.tab-content[data-path="${path}"]`);
-
-  if (tab) tab.classList.add("active");
-  if (content) content.style.display = "block";
+  li.addEventListener("click", () => {
+    document.querySelectorAll(".file").forEach(f => f.classList.remove("active"));
+    li.classList.add("active");
+    onFileSelect(item); // delega la lógica
+  });
 }
 
 function getIconForExtension(filename, iconPath) {
