@@ -1,99 +1,6 @@
-:root {
-  --color-editor-bg: #1e1e1e;
-  --color-panel: #252526;
-  --color-border: #3c3c3c;
-  --color-tab: #2d2d2d;
-  --color-tab-active: #007acc;
-  --color-text: #d4d4d4;
-  --color-muted: #888;
-  --editor-padding: 12px;
-  --tab-padding: 6px 12px;
-  --line-number-padding: 8px;
-  --font-mono: 'Fira Code', 'Courier New', monospace;
-}
-
-/* === CONTENEDOR PRINCIPAL === */
-.main-area {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-/* === PESTAÑAS === */
-.tabs {
-  display: flex;
-  padding: 0;
-  margin: 0;
-  background-color: var(--color-panel);
-  border-bottom: 1px solid var(--color-border);
-}
-
-
-.tab {
-  background-color: var(--color-tab);
-  color: var(--color-text);
-  padding: 4px 12px;
-  font-size: 13px;
-  border-right: 1px solid var(--color-border);
-  border-top-left-radius: 4px;
-  border-top-right-radius: 4px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-}
-
-.tab:last-child {
-  border-right: none;
-}
-
-.tab.active {
-  background-color: var(--color-tab-active);
-  color: white;
-  border-bottom: 1px solid var(--color-panel); /* para que se funda con el fondo */
-  z-index: 1;
-  position: relative;
-}
-.close-tab {
-  background: none;
-  border: none;
-  color: inherit;
-  font-size: 14px;
-  margin-left: 8px;
-  cursor: pointer;
-}
-
-/* === CONTENIDO DE PESTAÑA === */
-.tab-content {
-  display: none;
-  padding: 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 0 0 6px 6px;
-  background-color: var(--color-panel);
-  box-sizing: border-box;
-}
-
-/* === EDITOR === */
-.editor {
-  grid-area: editor;
-  background-color: var(--color-editor-bg);
-  color: var(--color-text);
-  font-family: var(--font-mono);
-  padding: var(--editor-padding);
-  font-size: 14px;
-  white-space: pre-wrap;
-  line-height: 1.5;
-  overflow-y: auto;
-  min-height: 300px;
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
-}
-
-/* === ÁREA DE CÓDIGO === */
 .code-area {
-  flex: 1;
-  padding: var(--editor-padding);
-  background-color: var(--color-editor-bg);
+  padding: 12px;
+  background-color: var(--color-editor);
   color: var(--color-text);
   font-family: var(--font-mono);
   white-space: pre;
@@ -101,43 +8,18 @@
   border: 1px solid var(--color-border);
   border-radius: 6px;
   box-sizing: border-box;
+  position: relative;
 }
 
-/* === NÚMEROS DE LÍNEA === */
-.line-numbers {
-  background-color: var(--color-tab);
-  color: var(--color-muted);
-  padding: var(--line-number-padding);
-  text-align: right;
-  -webkit-user-select: none;
-  user-select: none;
+.code-area::after {
+  content: "|";
+  animation: blink 1s infinite;
+  margin-left: 4px;
+  color: #9cdcfe;
+  position: absolute;
 }
 
-/* === TERMINAL / PREVIEW === */
-.preview {
-  flex: 1;
-  padding: 16px;
-  margin-top: 12px;
-  border: 1px solid var(--color-border);
-  border-radius: 6px;
-  background-color: var(--color-panel);
-  overflow: auto;
-  height: 200px;
-}
-
-.terminal-sim {
-  background-color: #1e1e1e;
-  color: #00ff00;
-  font-family: 'Courier New', monospace;
-  padding: 16px;
-  border-radius: 6px;
-  white-space: pre-wrap;
-  min-height: 200px;
-  overflow-y: auto;
-}
-
-.browser-preview {
-  width: 100%;
-  height: 300px;
-  border: none;
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
 }

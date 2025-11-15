@@ -1,0 +1,42 @@
+:root {
+  --color-bg: #1e1e1e;
+  --color-panel: #252526;
+  --color-editor: #1e1e1e;
+  --color-tab: #2d2d2d;
+  --color-border: #333;
+  --color-accent: #007acc;
+  --color-text: #d4d4d4;
+  --font-mono: 'Fira Code', monospace;
+  --font-size-base: 25px;
+  --sidebar-width: 72px;
+  --explorer-width: 350px;
+  --statusbar-height: 30px;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: var(--color-bg);
+  font-family: var(--font-mono);
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  overflow: hidden;
+}
+
+.vscode-layout {
+  display: grid;
+  grid-template-areas:
+    "sidebar explorer editor"
+    "sidebar explorer terminal"
+    "sidebar explorer statusbar";
+  grid-template-columns: var(--sidebar-width) var(--explorer-width) 1fr;
+  grid-template-rows: 1fr auto var(--statusbar-height);
+  height: calc(100vh - 40px); /* assuming topbar is 40px */
+}
+
+.sidebar { grid-area: sidebar; background: var(--color-panel); border-right: 1px solid var(--color-border); }
+.explorer { grid-area: explorer; background: var(--color-panel); border-right: 1px solid var(--color-border); }
+.editor { grid-area: editor; background: var(--color-editor); overflow: auto; }
+#terminal { grid-area: terminal; background: var(--color-editor); overflow-y: auto; }
+#statusbar { grid-area: statusbar; background: var(--color-panel); border-top: 1px solid var(--color-border); display: flex; align-items: center; padding: 0 12px; font-size: 18px; color: #858585; }

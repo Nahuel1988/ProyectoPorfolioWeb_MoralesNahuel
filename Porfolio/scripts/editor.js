@@ -1,11 +1,16 @@
+/**
+ * Inicializa el editor con un ejemplo visual (opcional)
+ */
 export function initEditor() {
   const codeArea = document.querySelector(".code-area");
   if (!codeArea) return;
-
-  const ejemplo = `<html>\n  <head>\n    <title>Portfolio</title>\n  </head>\n  <body>\n    <h1>Hola Nahuel</h1>\n  </body>\n</html>`;
-  typeInEditor(ejemplo, codeArea);
+  codeArea.textContent = "// Seleccioná un archivo para comenzar...";
+  codeArea.classList.add("placeholder");
 }
 
+/**
+ * Escribe texto con animación tipo máquina de escribir
+ */
 export function typeInEditor(text, targetElement, speed = 30) {
   return new Promise(resolve => {
     if (!targetElement || !text) return resolve();
@@ -24,20 +29,32 @@ export function typeInEditor(text, targetElement, speed = 30) {
   });
 }
 
-export function cargarArchivo(filename) {
-  const codeArea = document.querySelector(".code-area");
-  if (!codeArea || !filename) return;
+/**
+ * Renderiza contenido plano en el editor (sin animación)
+ */
+let escrituraActiva = null;
 
-  fetch("style/archivos.json")
-    .then(res => {
-      if (!res.ok) throw new Error("No se pudo cargar archivos.json");
-      return res.json();
-    })
-    .then(data => {
-      const contenido = data[filename];
-      if (contenido) {
-        typeInEditor(contenido, codeArea);
-      }
-    })
-    .catch(err => console.error("Error al cargar archivo:", err));
+export function renderEditorContent(content, onFinish) {
+  const codeArea = document.querySelector(".code-area");
+  if (!codeArea || typeof content !== "string") return;
+
+  // Cancelar animación anterior si existe
+  if (escrituraActiva) clearTimeout(escrituraActiva);
+
+  codeArea.textContent = "";
+  let index = 0;
+  const velocidad = 5;
+
+  function escribir() {
+    if (index < content.length) {
+      codeArea.textContent += content.charAt(index);
+      index++;
+      escrituraActiva = setTimeout(escribir, velocidad);
+    } else {
+      escrituraActiva = null;
+      if (typeof onFinish === "function") onFinish();
+    }
+  }
+
+  escribir();
 }
