@@ -5,62 +5,47 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio VSCode</title>
-    <link rel="stylesheet" href="style/main.css" />
+    <link rel="stylesheet" href="style/base.css" />
+    <link rel="stylesheet" href="style/layout.css" />
     <link rel="stylesheet" href="style/sidebar.css" />
     <link rel="stylesheet" href="style/explorer.css" />
     <link rel="stylesheet" href="style/editor.css" />
     <link rel="stylesheet" href="style/terminal.css" />
     <link rel="stylesheet" href="style/browser.css" />
     <link rel="stylesheet" href="style/statusbar.css" />
-    <script>
-        const theme = localStorage.getItem('theme') || 'dark';
-        document.documentElement.setAttribute('data-theme', theme);
-    </script>
 
 </head>
-
 <body>
     <header class="topbar">
-        <div class="topbar-left">
-            <img src="assets/icons/file_type_vscode.svg" class="logo" alt="Logo" />
-            <span class="project-name">Porfolio VSCode</span>
-        </div>
-        <div class="topbar-right">
-            <button title="Minimizar">—</button>
-            <button title="Expandir">▢</button>
-            <button title="Cerrar">✕</button>
-        </div>
-    </header>
+            <div class="topbar-left">
+                <img src="assets/icons/file_type_vscode.svg" class="logo" alt="Logo" />
+                <span class="project-name">Porfolio VSCode</span>
+            </div>
+            <div class="topbar-right">
+                <button title="Minimizar">—</button>
+                <button title="Expandir">▢</button>
+                <button title="Cerrar">✕</button>
+            </div>
+     </header>
 
 
     <div class="vscode-layout">
 
-        <div id="sidebar" class="sidebar panel"></div>
-
-        <div id="explorer" class="explorer panel"></div>
+        <div id="sidebar" class="sidebar"></div>
+        
+        <div id="explorer" class="explorer"></div>
         <div class="main-area">
             <div class="tabs"></div>
             <div class="code-area"></div>
-            <div class="preview panel">
-                <div class="terminal terminal-sim panel">
-                    <pre class="terminal-output panel"></pre>
+            <div class="preview">
+                <div class="terminal terminal-sim">
+                    <pre class="terminal-output"></pre>
                 </div>
             </div>
         </div>
+        <div id="terminal" class="terminal"></div>
 
-        <div class="status-bar">
-            <span>$(Nahuel) — Proyecto activo</span>
-            <span style="margin-left:auto;">UTF-8 | JS | CSS | HTML</span>
-        </div>
-
-    </div>
-    <div class="browser-window hidden">
-        <div class="browser-header">
-            <span>Browser Preview</span>
-            <button onclick="window.closeBrowser()">✕</button>
-
-        </div>
-        <iframe id="browser-frame" title="Browser Preview"></iframe>
+        <div id="statusbar" class="statusbar"></div>
     </div>
 
 

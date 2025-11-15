@@ -1,4 +1,4 @@
-#statusbar {
+.statusbar {
   grid-area: statusbar;
   background-color: var(--color-accent);
   color: var(--color-white);

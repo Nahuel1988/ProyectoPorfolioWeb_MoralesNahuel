@@ -1,6 +1,3 @@
-/**
- * Renderiza una simulación de terminal en el contenedor dado
- */
 export function renderTerminal(filename, content, container) {
   if (!container) return;
 
@@ -23,9 +20,6 @@ export function renderTerminal(filename, content, container) {
   simulateTerminalOutput(filename, content, output);
 }
 
-/**
- * Simula la escritura línea por línea en estilo terminal
- */
 function simulateTerminalOutput(filename, content, output, speed = 40) {
   const lines = content.split("\n");
   let index = 0;
